@@ -15,14 +15,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: '/uploads/:path*',
-        destination: `${adminUrl}/uploads/:path*`, // Proxy to Admin App using env var
-      },
-    ];
-  },
 };
 
 export default nextConfig;
