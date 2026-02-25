@@ -22,6 +22,8 @@ export async function POST(req: Request) {
         // Note: In production Vercel/Netlify, this won't persist. Cloudinary is needed.
         // But for local dev (which is the user's current context), this works perfectly.
         const uploadDir = path.join(process.cwd(), 'public/uploads');
+        // Ensure the uploads directory exists (especially in fresh environments)
+        await import('fs').then(fs => fs.promises.mkdir(uploadDir, { recursive: true }));
         const filePath = path.join(uploadDir, filename);
 
         await writeFile(filePath, buffer);
