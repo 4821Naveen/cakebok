@@ -1,6 +1,6 @@
-
 'use client';
 
+import { useState, useEffect } from 'react';
 import {
     LineChart,
     Line,
@@ -29,6 +29,12 @@ export default function DashboardCharts({
     salesTrend?: ChartData[],
     categoryDistribution?: ChartData[]
 }) {
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
     // Fallback data if empty
     const displaySales = salesTrend.length > 0 ? salesTrend : [
         { name: 'Loading...', sales: 0 }
@@ -37,6 +43,8 @@ export default function DashboardCharts({
     const displayCategory = categoryDistribution.length > 0 ? categoryDistribution : [
         { name: 'No Data', value: 1 }
     ];
+
+    if (!isMounted) return <div className="h-80 w-full animate-pulse bg-gray-50 rounded-2xl" />;
 
     return (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-6">

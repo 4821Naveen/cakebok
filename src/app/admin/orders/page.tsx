@@ -307,13 +307,13 @@ export default function OrdersPage() {
     };
 
     const statusColors: any = {
-        placed: 'bg-yellow-50 text-yellow-600 border-yellow-100',
-        processing: 'bg-blue-50 text-blue-600 border-blue-100',
-        shipped: 'bg-indigo-50 text-indigo-600 border-indigo-100',
-        delivered: 'bg-emerald-50 text-emerald-600 border-emerald-100',
-        cancel_requested: 'bg-orange-50 text-orange-600 border-orange-100',
-        cancelled: 'bg-red-50 text-red-600 border-red-100',
-        refunded: 'bg-gray-50 text-gray-400 border-gray-100',
+        placed: 'bg-yellow-50 text-yellow-600 border-yellow-200/50',
+        processing: 'bg-blue-50 text-blue-600 border-blue-200/50',
+        shipped: 'bg-indigo-50 text-indigo-600 border-indigo-200/50',
+        delivered: 'bg-emerald-50 text-emerald-600 border-emerald-200/50',
+        cancel_requested: 'bg-orange-50 text-orange-600 border-orange-200/50',
+        cancelled: 'bg-red-50 text-red-600 border-red-200/50',
+        refunded: 'bg-slate-100 text-slate-500 border-slate-200',
     };
 
     if (loading) return (
@@ -423,51 +423,51 @@ export default function OrdersPage() {
 
                     {/* Summary Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <div className="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform text-peca-purple">
-                                <ShoppingBag size={64} />
+                        <div className="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                            <div className="absolute -top-4 -right-4 p-8 opacity-5 group-hover:opacity-10 group-hover:scale-110 transition-all text-peca-purple">
+                                <ShoppingBag size={80} />
                             </div>
-                            <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Total Orders</p>
-                            <h2 className="text-3xl font-black text-gray-900 mt-2">{stats.totalOrders}</h2>
-                            <div className="mt-4 flex items-center gap-2 text-peca-purple">
-                                <TrendingUp size={14} className="stroke-[3px]" />
-                                <span className="text-[10px] font-black uppercase tracking-wider">All-time Recorded</span>
-                            </div>
-                        </div>
-
-                        <div className="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform text-amber-600">
-                                <Clock size={64} />
-                            </div>
-                            <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Pending Fulfillment</p>
-                            <h2 className="text-3xl font-black text-amber-600 mt-2">{stats.pendingOrders}</h2>
-                            <div className="mt-4 flex items-center gap-2 text-amber-600">
-                                <AlertCircle size={14} className="stroke-[3px]" />
-                                <span className="text-[10px] font-black uppercase tracking-wider tracking-widest">Awaiting Processing</span>
+                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Total Orders</p>
+                            <h2 className="text-4xl font-black text-gray-900 mt-2 tracking-tighter">{stats.totalOrders}</h2>
+                            <div className="mt-4 flex items-center gap-2 text-peca-purple bg-peca-purple/5 w-fit px-3 py-1 rounded-full border border-peca-purple/10">
+                                <TrendingUp size={12} className="stroke-[3px]" />
+                                <span className="text-[9px] font-black uppercase tracking-wider">Lifetime Volume</span>
                             </div>
                         </div>
 
-                        <div className="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform text-indigo-600">
-                                <Truck size={64} />
+                        <div className="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                            <div className="absolute -top-4 -right-4 p-8 opacity-5 group-hover:opacity-10 group-hover:scale-110 transition-all text-amber-600">
+                                <Clock size={80} />
                             </div>
-                            <p className="text-xs font-black text-gray-400 uppercase tracking-widest">In Transit</p>
-                            <h2 className="text-3xl font-black text-indigo-600 mt-2">{stats.inTransit}</h2>
-                            <div className="mt-4 flex items-center gap-2 text-indigo-600">
-                                <Package size={14} className="stroke-[3px]" />
-                                <span className="text-[10px] font-black uppercase tracking-wider">On the Way</span>
+                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Pending Fulfillment</p>
+                            <h2 className="text-4xl font-black text-amber-600 mt-2 tracking-tighter">{stats.pendingOrders}</h2>
+                            <div className="mt-4 flex items-center gap-2 text-amber-600 bg-amber-50 w-fit px-3 py-1 rounded-full border border-amber-100">
+                                <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                                <span className="text-[9px] font-black uppercase tracking-wider">Action Required</span>
                             </div>
                         </div>
 
-                        <div className="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform text-emerald-600">
-                                <CheckCircle size={64} />
+                        <div className="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                            <div className="absolute -top-4 -right-4 p-8 opacity-5 group-hover:opacity-10 group-hover:scale-110 transition-all text-indigo-600">
+                                <Truck size={80} />
                             </div>
-                            <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Completed Today</p>
-                            <h2 className="text-3xl font-black text-emerald-600 mt-2">{stats.completedToday}</h2>
-                            <div className="mt-4 flex items-center gap-2 text-emerald-600">
-                                <TrendingUp size={14} className="stroke-[3px]" />
-                                <span className="text-[10px] font-black uppercase tracking-wider">Delivered Successfully</span>
+                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">In Transit</p>
+                            <h2 className="text-4xl font-black text-indigo-600 mt-2 tracking-tighter">{stats.inTransit}</h2>
+                            <div className="mt-4 flex items-center gap-2 text-indigo-600 bg-indigo-50 w-fit px-3 py-1 rounded-full border border-indigo-100">
+                                <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+                                <span className="text-[9px] font-black uppercase tracking-wider">On Delivery</span>
+                            </div>
+                        </div>
+
+                        <div className="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                            <div className="absolute -top-4 -right-4 p-8 opacity-5 group-hover:opacity-10 group-hover:scale-110 transition-all text-emerald-600">
+                                <CheckCircle size={80} />
+                            </div>
+                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Completed Today</p>
+                            <h2 className="text-4xl font-black text-emerald-600 mt-2 tracking-tighter">{stats.completedToday}</h2>
+                            <div className="mt-4 flex items-center gap-2 text-emerald-600 bg-emerald-50 w-fit px-3 py-1 rounded-full border border-emerald-100">
+                                <CheckCircle size={12} className="stroke-[3px]" />
+                                <span className="text-[9px] font-black uppercase tracking-wider">Success Rate 100%</span>
                             </div>
                         </div>
                     </div>
@@ -628,21 +628,21 @@ export default function OrdersPage() {
                                             </td>
                                             <td className="px-8 py-6">
                                                 <span className={clsx(
-                                                    'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border-2 shadow-sm',
+                                                    'inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.1em] border-2 shadow-sm transition-all hover:scale-105',
                                                     statusColors[order.status] || 'bg-gray-50 text-gray-400 border-gray-100'
                                                 )}>
                                                     <div className={clsx(
                                                         'w-1.5 h-1.5 rounded-full',
-                                                        ['placed', 'processing', 'shipped'].includes(order.status) ? 'bg-current animate-pulse' : 'bg-current'
+                                                        ['placed', 'processing', 'shipped', 'cancel_requested'].includes(order.status) ? 'bg-current animate-pulse' : 'bg-current'
                                                     )} />
                                                     {order.status.replace('_', ' ')}
                                                 </span>
                                                 {(order.cancellationRequest?.requested || order.status === 'cancel_requested') && order.status !== 'cancelled' && order.status !== 'refunded' && (
                                                     <button
                                                         onClick={() => showCancellationDetails(order)}
-                                                        className="mt-2.5 flex items-center justify-center gap-1 text-[9px] font-black text-white bg-gradient-to-r from-orange-500 to-red-600 px-3 py-2 rounded-xl shadow-lg shadow-orange-500/20 hover:scale-105 active:scale-95 transition-all w-full"
+                                                        className="mt-3 flex items-center justify-center gap-2 text-[10px] font-black text-white bg-gradient-to-br from-orange-400 to-orange-600 px-4 py-2.5 rounded-xl shadow-lg shadow-orange-500/20 hover:scale-105 active:scale-95 transition-all w-full border-b-4 border-orange-800"
                                                     >
-                                                        <AlertCircle size={10} className="stroke-[3px]" /> VIEW REQUEST
+                                                        <AlertCircle size={14} className="stroke-[3px]" /> VIEW REQUEST
                                                     </button>
                                                 )}
                                             </td>

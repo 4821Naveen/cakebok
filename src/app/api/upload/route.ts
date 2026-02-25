@@ -26,6 +26,9 @@ export async function POST(req: Request) {
         await import('fs').then(fs => fs.promises.mkdir(uploadDir, { recursive: true }));
         const filePath = path.join(uploadDir, filename);
 
+        console.log(`[Upload API] CWD: ${process.cwd()}`);
+        console.log(`[Upload API] Target path: ${filePath}`);
+
         await writeFile(filePath, buffer);
 
         // Return the URL
