@@ -6,32 +6,25 @@ import path from 'path';
 export async function GET() {
     try {
         const cwd = process.cwd();
-        const uploadDir = path.join(cwd, 'public/uploads');
+        const dataDir = path.join('/app', 'data', 'uploads');
+        const devDir = path.join(cwd, 'public', 'uploads');
 
-        let files: string[] = [];
-        let dirExists = false;
-        let stats = null;
-
-        if (fs.existsSync(uploadDir)) {
-            dirExists = true;
-            files = fs.readdirSync(uploadDir);
-            stats = fs.statSync(uploadDir);
-        }
-
-        const publicDir = path.join(cwd, 'public');
-        const publicFiles = fs.existsSync(publicDir) ? fs.readdirSync(publicDir) : [];
+        const checkDir = (dir: string) => {
+            const exists = fs.existsSync(dir);
+            return {
+                path: dir,
+                exists,
+                files: exists ? fs.readdirSync(dir) : [],
+                stats: exists ? fs.statSync(dir) : null
+            };
+        };
 
         return NextResponse.json({
             cwd,
-            uploadDir,
-            dirExists,
-            stats: stats ? {
-                mode: stats.mode,
-                uid: stats.uid,
-                gid: stats.gid
-            } : null,
-            files,
-            publicFiles
+            nodeEnv: process.env.NODE_ENV,
+            isProd: process.env.NODE_ENV === 'production',
+            dataDir: checkDir(dataDir),
+            devDir: checkDir(devDir)
         });
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });

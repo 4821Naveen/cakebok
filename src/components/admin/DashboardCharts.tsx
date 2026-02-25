@@ -51,8 +51,8 @@ export default function DashboardCharts({
             {/* Sales Trend Line Chart */}
             <div className="md:col-span-2 bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
                 <h3 className="text-lg font-black text-slate-900 mb-6 tracking-tighter">Sales Performance</h3>
-                <div className="h-80 w-full">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                <div className="h-80 w-full min-h-[320px]">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={100}>
                         <LineChart data={displaySales}>
                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                             <XAxis
@@ -91,8 +91,8 @@ export default function DashboardCharts({
             {/* Category Distribution Pie Chart */}
             <div className="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
                 <h3 className="text-lg font-black text-slate-900 mb-6 tracking-tighter">Inventory Mix</h3>
-                <div className="h-80 w-full">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                <div className="h-80 w-full min-h-[320px]">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={100}>
                         <PieChart>
                             <Pie
                                 data={displayCategory}

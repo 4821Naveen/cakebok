@@ -44,8 +44,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Ensure uploads directory exist and correct permissions
-RUN mkdir -p public/uploads && chown -R nextjs:nodejs /app
+# Ensure data directory and uploads exist with correct permissions
+RUN mkdir -p data/uploads && chown -R nextjs:nodejs /app
 
 USER nextjs
 

@@ -18,21 +18,25 @@ export async function POST(req: Request) {
         // Create unique filename
         const filename = `${Date.now()}-${file.name.replace(/\s/g, '-')}`;
 
-        // Save to public/uploads
-        // Note: In production Vercel/Netlify, this won't persist. Cloudinary is needed.
-        // But for local dev (which is the user's current context), this works perfectly.
-        const uploadDir = path.join(process.cwd(), 'public/uploads');
-        // Ensure the uploads directory exists (especially in fresh environments)
-        await import('fs').then(fs => fs.promises.mkdir(uploadDir, { recursive: true }));
-        const filePath = path.join(uploadDir, filename);
+        // Determine storage directory: 
+        // In local development: public/uploads
+        // In production Docker: /app/data/uploads
+        const isProd = process.env.NODE_ENV === 'production';
+        const storageDir = isProd
+            ? path.join('/app', 'data', 'uploads')
+            : path.join(process.cwd(), 'public', 'uploads');
 
-        console.log(`[Upload API] CWD: ${process.cwd()}`);
+        // Ensure the directory exists
+        await import('fs').then(fs => fs.promises.mkdir(storageDir, { recursive: true }));
+        const filePath = path.join(storageDir, filename);
+
+        console.log(`[Upload API] Mode: ${process.env.NODE_ENV}`);
         console.log(`[Upload API] Target path: ${filePath}`);
 
         await writeFile(filePath, buffer);
 
-        // Return the URL
-        const fileUrl = `/uploads/${filename}`;
+        // Return the API Serving URL
+        const fileUrl = `/api/images/${filename}`;
 
         return NextResponse.json({ url: fileUrl });
 
