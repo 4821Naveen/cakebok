@@ -8,14 +8,13 @@ export async function GET(
     { params }: { params: Promise<{ filename: string }> }
 ) {
     try {
-        const { filename } = await params;
+        const { filename: rawFilename } = await params;
+        const filename = decodeURIComponent(rawFilename);
 
-        // Determine storage directory: 
-        // In local development: public/uploads
-        // In production Docker: /app/data/uploads
+        // Standardized storage path
         const isProd = process.env.NODE_ENV === 'production';
         const storageDir = isProd
-            ? path.join('/app', 'data', 'uploads')
+            ? path.join(process.cwd(), 'data', 'uploads')
             : path.join(process.cwd(), 'public', 'uploads');
 
         const filePath = path.join(storageDir, filename);

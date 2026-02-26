@@ -23,7 +23,7 @@ export async function POST(req: Request) {
         // In production Docker: /app/data/uploads
         const isProd = process.env.NODE_ENV === 'production';
         const storageDir = isProd
-            ? path.join('/app', 'data', 'uploads')
+            ? path.join(process.cwd(), 'data', 'uploads')
             : path.join(process.cwd(), 'public', 'uploads');
 
         // Ensure the directory exists
