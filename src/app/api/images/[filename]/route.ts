@@ -11,20 +11,30 @@ export async function GET(
         const { filename: rawFilename } = await params;
         const filename = decodeURIComponent(rawFilename);
 
-        // Standardized storage path
+        // Standardized storage path detection
         const isProd = process.env.NODE_ENV === 'production';
-        const storageDir = isProd
-            ? path.join(process.cwd(), 'data', 'uploads')
-            : path.join(process.cwd(), 'public', 'uploads');
 
-        const filePath = path.join(storageDir, filename);
+        // Define potential storage locations (absolute and relative)
+        const possibleDirs = [
+            path.join(process.cwd(), 'data', 'uploads'),
+            path.join('/app', 'data', 'uploads'),
+            path.join(process.cwd(), 'public', 'uploads'),
+        ];
 
-        // Security: Prevent path traversal
-        if (!filePath.startsWith(storageDir)) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        let filePath = '';
+        let found = false;
+
+        for (const dir of possibleDirs) {
+            const checkPath = path.join(dir, filename);
+            if (fs.existsSync(checkPath)) {
+                filePath = checkPath;
+                found = true;
+                break;
+            }
         }
 
-        if (!fs.existsSync(filePath)) {
+        if (!found) {
+            console.error(`[Image API] File not found: ${filename} in any of: ${possibleDirs.join(', ')}`);
             return NextResponse.json({ error: 'File not found' }, { status: 404 });
         }
 
